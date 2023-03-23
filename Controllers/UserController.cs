@@ -11,7 +11,6 @@ namespace Shop.Controllers
 {
     public class UserController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IUserService _service;
 
         public UserController(IUserService service)
@@ -19,10 +18,6 @@ namespace Shop.Controllers
             _service = service;
         }
 
-        public UserController(AppDbContext context)
-        {
-            _context = context;
-        }
 
         public IActionResult Login()
         {
@@ -55,7 +50,7 @@ namespace Shop.Controllers
 
         public IActionResult Singout()
         {
-            var data = _context.Users.ToList();
+           // var data = _context.Users.ToList();
             return View();
         }
     }
