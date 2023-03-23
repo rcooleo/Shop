@@ -1,0 +1,61 @@
+﻿
+@model Game
+ 
+@{
+    ViewData["Title"] = "Add a new Game";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a new Game</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group text-center">
+                        <img id="GamePicturePreview" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GamePictureURL" class="control-label"></label>
+                        <input asp-for="GamePictureURL" class="form-control" />
+                        <span asp-validation-for="GamePictureURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GameTitle" class="control-label"></label>
+                        <input asp-for="GameTitle" class="form-control" />
+                        <span asp-validation-for="GameTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Genre" class="control-label"></label>
+                        <input asp-for="Genre" class="form-control" />
+                        <span asp-validation-for="Genre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-controller="Game" asp-action="Index">Show all</a>
+                    </div>
+                </form>              
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('GamePicturePreview');
+            output.src = $("#GamePictureURL").val();
+        })
+        $("#GamePictureURL").on("change", function () {
+            var output = document.getElementById('GamePicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}

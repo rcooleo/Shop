@@ -1,0 +1,56 @@
+﻿
+@model Game
+
+@{
+    ViewData["Title"] = "Details of the Game";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Details for @Model.GameTitle</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div class="form-group text-center">
+                    <img class="border-info rounded-circle" style="max-width: 300px" id="GamePicturePreview" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="GamePictureURL" class="control-label"></label>
+                    <input asp-for="GamePictureURL" class="form-control" readonly />
+                    <span asp-validation-for="GamePictureURL" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GameTitle" class="control-label"></label>
+                    <input asp-for="GameTitle" class="form-control" readonly />
+                    <span asp-validation-for="GameTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Genre" class="control-label"></label>
+                    <input asp-for="Genre" class="form-control" readonly />
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" readonly />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-GameId="@Model.GameId">Edit</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Game" asp-action="Index">Show all</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('GamePicturePreview');
+            output.src = $("#GamePictureURL").val();
+        })
+     
+    </script>
+}

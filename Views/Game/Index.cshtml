@@ -1,0 +1,53 @@
+﻿@model  IEnumerable<Game>
+
+@{ 
+    ViewData["Title"] = "List of Games";
+}
+    <div class="text-white">
+        <a asp-controller="Game" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add new</a>
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-info">
+                                <p class="card-text">
+                                    <h5>
+                                        @item.GameTitle
+                                        <a class="text-white float-right"><i class=""></i></a>
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="@item.GamePictureURL" width="100%" alt="@item.GameTitle" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text"><b>Game: </b>@item.GameTitle</p>
+                                <p class="card-text"><b>Genre: </b>@item.Genre</p>
+                                <p class="card-text"><b>GameId: </b>@item.GameId</p>
+                                <p class="card-text">
+                                    <b>Status: </b>
+                                    @*@if (condition){}else if (condition){}*@
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-primary float-right" asp-action="Edit" asp-route-GameId="@item.GameId"><i class="bi bi-pencil">Edit</i></a>
+                                    <a class="btn btn-outline-primary float-right" asp-controller="Game" asp-action="Details" asp-route-GameId="@item.GameId"><i class="bi bi-eye">Show Details</i></a>
+                                    <a class="btn btn-outline-primary float-right" asp-action="Delete" asp-route-GameId="@item.GameId"><i class="bi bi-trash">Delete</i></a>
+                                    <a class="btn btn-success text-white"><i> Add to Cart (@item.Price.ToString("c"))</i></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
