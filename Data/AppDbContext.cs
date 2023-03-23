@@ -28,7 +28,7 @@ namespace Shop.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Games_Person> Games_Persons { get; set; }
     }

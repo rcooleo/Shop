@@ -42,10 +42,63 @@ namespace Shop.Data
                     });
                     context.SaveChanges();
                 }
-                //Person
-               
+
+                //User
+                if (!context.Users.Any())
+                {
+                    context.Users.AddRange(new List<User>()
+                    {
+                        new User()
+                        {
+                            UserId = 'F645905F-6434-4600-ADDD-BB6925B870B3',
+                            Firstname = "admin",
+                            Lastname = "admin",
+                            Age = 18,
+                            UserEmail = "admin@admit.at",
+                            UserPassword = "admin",                                           
+                        },
+                        new User()
+                        {
+                           UserId = '48DFEF30-223E-4F62-B727-53C649701341',
+                            Firstname = "user",
+                            Lastname = "user",
+                            Age = 18,
+                            UserEmail = "user@user.at",
+                            UserPassword = "user",
+                        }
+                    });
+                    context.SaveChanges();
+                }
+
+                //User
+                if (!context.Users.Any())
+                {
+                    context.Users.AddRange(new List<User>()
+                    {
+                        new User()
+                        {
+                            UserId = 'F645905F-6434-4600-ADDD-BB6925B870B3',
+                            Firstname = "admin",
+                            Lastname = "admin",
+                            Age = 18,
+                            UserEmail = "admin@admit.at",
+                            UserPassword = "admin",
+                        },
+                        new User()
+                        {
+                           UserId = '48DFEF30-223E-4F62-B727-53C649701341',
+                            Firstname = "user",
+                            Lastname = "user",
+                            Age = 18,
+                            UserEmail = "user@user.at",
+                            UserPassword = "user",
+                        }
+                    });
+                    context.SaveChanges();
+                }
+
                 //Person_Games
-              
+
             }
         }
     }

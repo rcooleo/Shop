@@ -10,6 +10,6 @@ namespace Shop.Models
         public Guid GameId { get; set; }
         public Game Games { get; set; }
         public Guid PersonId { get; set; }
-        public Person Persons { get; set; }
+        public User Persons { get; set; }
     }
 }

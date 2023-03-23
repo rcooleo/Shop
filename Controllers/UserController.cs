@@ -7,18 +7,18 @@ using Shop.Data;
 
 namespace Shop.Controllers
 {
-    public class PersonController : Controller
+    public class UserController : Controller
     {
         private readonly AppDbContext _context;
 
-        public PersonController(AppDbContext context)
+        public UserController(AppDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var data = _context.Persons.ToList();
+            var data = _context.Users.ToList();
             return View();
         }
     }

@@ -63,7 +63,8 @@ namespace Shop.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Edit(Guid GameId, [Bind("GameId,GameTitle,GamePictureURL,Genre,Price")] Game game)
-        {
+        {  
+
             if (!ModelState.IsValid)
             {
                 return View(game);
