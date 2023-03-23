@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Data.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Shop.Models;
 
 namespace Shop
 {
@@ -32,6 +35,16 @@ namespace Shop
 
             //Services configuration
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IUserService, UserService>();
+
+            //Authentication and authorization
+            //services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -62,6 +75,11 @@ namespace Shop
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
+
+            //Authentication & Authorization
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -71,6 +89,7 @@ namespace Shop
 
             //Seed database
             AppDbInitializer.Seed(app);
+            //AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

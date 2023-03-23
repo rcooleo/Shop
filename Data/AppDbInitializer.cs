@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Shop.Data.Static;
 using Shop.Models;
 using System;
 using System.Collections.Generic;
@@ -43,62 +45,64 @@ namespace Shop.Data
                     context.SaveChanges();
                 }
 
-                //User
-                if (!context.Users.Any())
-                {
-                    context.Users.AddRange(new List<User>()
-                    {
-                        new User()
-                        {
-                            UserId = 'F645905F-6434-4600-ADDD-BB6925B870B3',
-                            Firstname = "admin",
-                            Lastname = "admin",
-                            Age = 18,
-                            UserEmail = "admin@admit.at",
-                            UserPassword = "admin",                                           
-                        },
-                        new User()
-                        {
-                           UserId = '48DFEF30-223E-4F62-B727-53C649701341',
-                            Firstname = "user",
-                            Lastname = "user",
-                            Age = 18,
-                            UserEmail = "user@user.at",
-                            UserPassword = "user",
-                        }
-                    });
-                    context.SaveChanges();
-                }
-
-                //User
-                if (!context.Users.Any())
-                {
-                    context.Users.AddRange(new List<User>()
-                    {
-                        new User()
-                        {
-                            UserId = 'F645905F-6434-4600-ADDD-BB6925B870B3',
-                            Firstname = "admin",
-                            Lastname = "admin",
-                            Age = 18,
-                            UserEmail = "admin@admit.at",
-                            UserPassword = "admin",
-                        },
-                        new User()
-                        {
-                           UserId = '48DFEF30-223E-4F62-B727-53C649701341',
-                            Firstname = "user",
-                            Lastname = "user",
-                            Age = 18,
-                            UserEmail = "user@user.at",
-                            UserPassword = "user",
-                        }
-                    });
-                    context.SaveChanges();
-                }
-
                 //Person_Games
+                
+            }
+        }
 
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+
+                //Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                //Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                string adminUserEmail = "admin@admin.com";
+
+                var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser == null)
+                {
+                    var newAdminUser = new User()
+                    {
+                        Firstname = "admin",
+                        Lastname = "admin",
+                        Username = "admin-admin",
+                        Age = 18,
+                        UserEmail = adminUserEmail,
+                        UserPassword = "admin",
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAdminUser, "admin");
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+
+                string appUserEmail = "user@user.com";
+
+                var appUser = await userManager.FindByEmailAsync(appUserEmail);
+                if (appUser == null)
+                {
+                    var newAppUser = new User()
+                    {
+                        Firstname = "user",
+                        Lastname = "user",
+                        Username = "user-user",
+                        Age = 18,
+                        UserEmail = appUserEmail,
+                        UserPassword = "user",
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAppUser, "Coding@1234?");
+                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
             }
         }
     }
